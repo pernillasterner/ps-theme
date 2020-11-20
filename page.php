@@ -13,23 +13,43 @@
     </div>  
   </div>
 
+  
   <div class="container container--narrow page-section">
-    <!-- ONLY SHOW IF THE CURRENT PAGE IS A CHILD PAGE -->
+    <!-- Show only if the current page is a child page -->
     <?php if (is_page() && $post->post_parent) { ?>
       <div class="metabox metabox--position-up metabox--with-home-link">
         <p><a class="metabox__blog-home-link" href="<?php echo get_permalink( $post->post_parent )?>"><i class="fa fa-home" aria-hidden="true"></i> Back to <?php echo get_the_title( $post->post_parent ); ?></a> <span class="metabox__main"><?php the_title(); ?></span></p>
       </div>
     <?php } ?>
 
-    
-    <!-- <div class="page-links">
-      <h2 class="page-links__title"><a href="#">About Us</a></h2>
-      <ul class="min-list">
-        <li class="current_page_item"><a href="#">Our History</a></li>
-        <li><a href="#">Our Goals</a></li>
-      </ul>
-    </div> -->
-
+  <!-- Show only if it´s a parent OR child page -->
+  <?php
+  // Check if the current page has any children - It will return a collection of children pages 
+  $parent = get_pages( array(
+    'child_of' => get_the_ID()
+  ));
+  ?>
+    <?php if ($post->post_parent || $parent) : ?>
+      <div class="page-links">
+        <h2 class="page-links__title"><a href="#"><?php echo get_the_title( $post->post_parent ); ?></a></h2>
+        <ul class="min-list">
+          <?php
+          // Check if it´s a childpage. If it´s not add the page id instead. 
+          if($post->post_parent) {
+            $childOf = $post->post_parent;
+          } else {
+            $childOf = get_the_ID();
+          }
+          ?>
+          <?php wp_list_pages( $args = array(
+            'title_li' => null,
+            'child_of' => $childOf,
+            'sort_column' => 'menu_order'
+          )); ?>
+        </ul>
+      </div>
+    <?php endif; ?>
+        
     <div class="generic-content">
       <?php the_content(); ?>
     </div>
