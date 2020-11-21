@@ -3,3 +3,6 @@
 
 # IDE files
 .htaccess
+
+# Module files
+node_modules
