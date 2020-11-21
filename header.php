@@ -9,18 +9,19 @@
   <header class="site-header">
     <div class="container">
       <h1 class="school-logo-text float-left">
-        <a href="<?php echo site_url(); ?>"><strong>PS</strong> Theme</a>
+        <a href="<?php echo site_url(); ?>">PS Theme</a>
       </h1>
       <span class="js-search-trigger site-header__search-trigger"><i class="fa fa-search" aria-hidden="true"></i></span>
       <i class="site-header__menu-trigger fa fa-bars" aria-hidden="true"></i>
       <div class="site-header__menu group">
         <nav class="main-navigation">
+          <?php $currentMenuItemClass = 'class="current-menu-item"'; ?>
           <ul>
-            <li <?php if(is_page('about-us') or wp_get_post_parent_id(0) == 21) echo 'class="current-menu-item"'; ?>><a href="<?php echo site_url( '/about-us' ); ?>">About us</a></li>
+            <li <?php if(is_page('about-us') or wp_get_post_parent_id(0) == 21) echo $currentMenuItemClass; ?>><a href="<?php echo site_url( '/about-us' ); ?>">About us</a></li>
             <li><a href="<?php echo site_url('/programs'); ?>">Programs</a></li>
-            <li><a href="#">Events</a></li>
-            <li><a href="#">Campuses</a></li>
-            <li><a href="<?php echo site_url('/blog'); ?>">Blog</a></li>
+            <li><a href="<?php echo site_url('/events'); ?>">Events</a></li>
+            <li><a href="<?php echo site_url('/campuses'); ?>">Campuses</a></li>
+            <li <?php if(get_post_type() == 'post') echo $currentMenuItemClass; ?>><a href="<?php echo site_url('/blog'); ?>">Blog</a></li>
           </ul>
         </nav>
         <div class="site-header__util">
