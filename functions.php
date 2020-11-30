@@ -22,8 +22,14 @@ add_action( 'after_setup_theme', 'init' );
 
 
 function adjust_queries($query) {
-  // Determines whether the current request is for an administrative interface page AND whether the query is the main query..
-  if(!is_admin() && is_post_type_archive('event') && $query->is_main_query()) {
+  // Determines whether the current request is for an administrative interface page AND whether the query is the main query.
+  if(is_admin() && is_post_type_archive('program') && is_main_query()) {
+    $query->set('orderby', 'title');
+    $query->set('order', 'ASC');
+    $query->set('post_per_page', -1);
+  }
+
+  if(!is_admin() && is_post_type_archive('event') && is_main_query()) {
     $today = date('Ymd');
     $query->set('meta_key', 'event_date');
     $query->set('orderby', 'meta_value_num');
