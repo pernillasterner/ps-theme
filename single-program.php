@@ -1,6 +1,6 @@
 <?php 
 /**
-* Post Type Template for Single Event
+* Post Type Template for Single Program
 */
 get_header();?>
 
@@ -23,9 +23,43 @@ get_header();?>
     </div>
 
     <div class="generic-content"><?php the_content(); ?></div>
-
+  
     <!-- Get and Output data if related_programs contains the current program post -->
     <?php
+    // PROFESSORS
+    $args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'professor',
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'meta_query' => array(
+        array(
+          'key' => 'related_programs',
+          'compare' => 'LIKE',
+          'value' => strval(get_the_ID())
+        )
+      )
+    );
+    $professors = new WP_Query($args);
+    
+    if ($professors->have_posts()) {
+        echo '<hr class="section-break">';
+        echo '<h2 class="headline headline--medium"> ' . get_the_title() . ' Professors</h2>';
+
+      while ($professors->have_posts()) {
+        $professors->the_post(); ?>
+        <!-- Get the event date -->
+        <?php $eventDate = new DateTime(get_field('event_date')); ?>
+          
+        <li><a href="<?php the_permalink();?>"><?php the_title(); ?></a></li>
+      <?php
+      }
+    }
+
+    // Reset global variables
+    wp_reset_postdata();
+
+    // EVENTS
     $today = date('Ymd');
     $args = array(
       'posts_per_page' => 2,
@@ -76,7 +110,9 @@ get_header();?>
       <?php
       }
     } ?>
-     
+
+    <!-- Reset global variables -->
+    <?php wp_reset_postdata(); ?>
 
   </div>
 
