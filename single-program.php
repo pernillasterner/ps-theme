@@ -46,14 +46,21 @@ get_header();?>
         echo '<hr class="section-break">';
         echo '<h2 class="headline headline--medium"> ' . get_the_title() . ' Professors</h2>';
 
+      echo '<ul class="professor-cards">';
       while ($professors->have_posts()) {
         $professors->the_post(); ?>
         <!-- Get the event date -->
         <?php $eventDate = new DateTime(get_field('event_date')); ?>
-          
-        <li><a href="<?php the_permalink();?>"><?php the_title(); ?></a></li>
+        
+        <li class="professor-card__list-item">
+          <a class="professor-card" href="<?php the_permalink();?>">
+            <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape'); ?>">
+            <span class="professor-card__name"><?php the_title(); ?></span>
+          </a>
+        </li>
       <?php
       }
+      echo '</ul>';
     }
 
     // Reset global variables
