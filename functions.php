@@ -16,6 +16,9 @@ add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
 function init() {
   // Generate title tag
   add_theme_support('title-tag');
+  add_theme_support('post-thumbnails');
+  add_image_size('professorLandscape', 400, 260, true);
+  add_image_size('professorPortrait', 480, 650, true);
 }
 add_action( 'after_setup_theme', 'init' );
 
