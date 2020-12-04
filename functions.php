@@ -86,7 +86,8 @@ add_action('pre_get_posts', 'adjust_queries');
 
 
 // GOOGLE MAP API
-function mapKey($api) {
+function mapKey($googleMapAPI_KEY) {
+  // global $googleMapAPI_KEY;
   $api['key'] = $googleMapAPI_KEY;
   return $api;
 }
