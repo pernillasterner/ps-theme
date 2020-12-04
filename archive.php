@@ -1,6 +1,6 @@
 <?php
 /**
-* A Simple Archive Template
+* A Simple Template For All Archives
 */
 get_header(); ?>
 
