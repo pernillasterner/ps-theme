@@ -1,6 +1,6 @@
 <?php
 /**
-* Archive Template For All The Events
+* Archive Template For Events
 */
 get_header(); ?>
 
