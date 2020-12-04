@@ -1,6 +1,6 @@
 <?php 
 /**
-* Post Type Template for Single Program
+* Post Type Template for Single Campus
 */
 get_header();?>
 
@@ -11,44 +11,50 @@ get_header();?>
 
   <div class="container container--narrow page-section">
     <div class="metabox metabox--position-up metabox--with-home-link">
-      <p><a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('program'); ?>"><i class="fa fa-home" aria-hidden="true"></i> All Programs</a> <span class="metabox__main"><?php the_title(); ?></span></p>
+      <p><a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('campus'); ?>"><i class="fa fa-home" aria-hidden="true"></i> All Campuses</a> <span class="metabox__main"><?php the_title(); ?></span></p>
     </div>
 
     <div class="generic-content"><?php the_content(); ?></div>
+
+    <!-- Google Map -->
+    <?php $mapLocation = get_field('map_location'); ?>
+    <div class="acf-map">
+      <div class="marker" data-lat="<?php echo $mapLocation['lat']; ?>" data-lng="<?php echo $mapLocation['lng']; ?>">
+        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+        <?php echo $mapLocation['address'];  ?>
+      </div>
+    </div>
+    
+   
   
     <!-- Get and Output data if related_programs contains the current program post -->
     <?php
-    // PROFESSORS
+    // PROGRAMS
     $args = array(
       'posts_per_page' => -1,
-      'post_type' => 'professor',
+      'post_type' => 'program',
       'orderby' => 'title',
       'order' => 'ASC',
       'meta_query' => array(
         array(
-          'key' => 'related_programs',
+          'key' => 'related_campus',
           'compare' => 'LIKE',
           'value' => strval(get_the_ID())
         )
       )
     );
-    $professors = new WP_Query($args);
-    
-    if ($professors->have_posts()) {
-        echo '<hr class="section-break">';
-        echo '<h2 class="headline headline--medium"> ' . get_the_title() . ' Professors</h2>';
+    $programs = new WP_Query($args);
+  
 
-      echo '<ul class="professor-cards">';
-      while ($professors->have_posts()) {
-        $professors->the_post(); ?>
-        <!-- Get the event date -->
-        <?php $eventDate = new DateTime(get_field('event_date')); ?>
-        
-        <li class="professor-card__list-item">
-          <a class="professor-card" href="<?php the_permalink();?>">
-            <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape'); ?>">
-            <span class="professor-card__name"><?php the_title(); ?></span>
-          </a>
+    if ($programs->have_posts()) {
+        echo '<hr class="section-break">';
+        echo '<h2 class="headline headline--medium">Programs available at this Campus</h2>';
+
+      echo '<ul class="min-list link-list">';
+      while ($programs->have_posts()) {
+        $programs->the_post(); ?>
+        <li>
+          <a href="<?php the_permalink();?>"><?php the_title(); ?></a>
         </li>
       <?php
       }
@@ -90,25 +96,7 @@ get_header();?>
         $events->the_post();
         get_template_part('template-parts/content-event');
       }
-    } 
-    
-    // Reset global variables
-    wp_reset_postdata();
-
-    // Get related campuses
-    $campuses = get_field('related_campus');
-
-    if($campuses) {
-      echo '<hr class="section-break">';
-      echo '<h2 class="headline headline--medium">' . get_the_title()  . ' is available at these campuses</h2>';
-    
-      echo '<ul class="min-list link-list">';
-      foreach($campuses as $campus) { ?>
-        <li><a href="<?php the_permalink($campus); ?>"><?php echo get_the_title($campus); ?></a></li>
-      <?php }
-      echo '</ul>';
-    }
-    ?>
+    } ?>
 
     <!-- Reset global variables -->
     <?php wp_reset_postdata(); ?>
