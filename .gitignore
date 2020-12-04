@@ -6,3 +6,6 @@
 
 # Module files
 node_modules
+
+# Keys
+keys.php

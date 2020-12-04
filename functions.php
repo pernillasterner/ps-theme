@@ -1,4 +1,5 @@
 <?php
+include 'keys.php';
 
 // Page Banner Content
 function pageBanner($args = NULL) {
@@ -33,11 +34,12 @@ function pageBanner($args = NULL) {
 
 // LOADING SCRIPTS
 function add_theme_scripts() {
+  global $googleMapAPI_KEY;
   // Loading FONTS
   wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
   wp_enqueue_style( 'custom-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i' );
   // Loading JS & CSS
-  wp_enqueue_script( 'googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyDnKkGkB9azAML1pT_DTWroLrmOwMnUT_I', null, 1.0, true);
+  wp_enqueue_script( 'googleMap', "//maps.googleapis.com/maps/api/js?key=$googleMapAPI_KEY", null, 1.0, true);
   wp_enqueue_script( 'script', 'http://localhost:3000/bundled.js', null, 1.0, true);
  
 }
@@ -85,7 +87,7 @@ add_action('pre_get_posts', 'adjust_queries');
 
 // GOOGLE MAP API
 function mapKey($api) {
-  $api['key'] = 'AIzaSyDnKkGkB9azAML1pT_DTWroLrmOwMnUT_I';
+  $api['key'] = $googleMapAPI_KEY;
   return $api;
 }
 add_filter('acf/fields/google_map/api', 'mapKey');
