@@ -58,9 +58,8 @@ function init() {
 add_action( 'after_setup_theme', 'init' );
 
 
-
+// Determines whether the current request is for an administrative interface page AND whether the query is the main query.
 function adjust_queries($query) {
-  // Determines whether the current request is for an administrative interface page AND whether the query is the main query.
   if(!is_admin() && is_post_type_archive('campus') && is_main_query()) {
     $query->set('post_per_page', -1);
   }
