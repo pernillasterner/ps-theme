@@ -62,45 +62,10 @@ get_header();?>
     }
 
     // Reset global variables
-    wp_reset_postdata();
-
-    // EVENTS
-    $today = date('Ymd');
-    $args = array(
-      'posts_per_page' => 2,
-      'post_type' => 'event',
-      'meta_key' => 'event_date',
-      'orderby' => 'meta_value_num',
-      'order' => 'ASC',
-      'meta_query' => array(
-        array(
-          'key' => 'event_date',
-          'compare' => '>=',
-          'value' => $today,
-          'type' => 'numeric'
-        ),
-        array(
-          'key' => 'related_programs',
-          'compare' => 'LIKE',
-          'value' => strval(get_the_ID())
-        )
-      )
-    );
-    $events = new WP_Query($args);
+    wp_reset_postdata(); 
     
-    if ($events->have_posts()) {
-        echo '<hr class="section-break">';
-        echo '<h2 class="headline headline--medium">Upcoming ' . get_the_title() . ' Events</h2>';
-
-      while ($events->have_posts()) {
-        $events->the_post();
-        get_template_part('template-parts/content-event');
-      }
-    } ?>
-
-    <!-- Reset global variables -->
-    <?php wp_reset_postdata(); ?>
-
+    ?>
+    
   </div>
 
 <?php } ?>
