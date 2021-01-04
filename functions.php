@@ -41,7 +41,11 @@ function add_theme_scripts() {
   // Loading JS & CSS
   wp_enqueue_script( 'googleMap', "//maps.googleapis.com/maps/api/js?key=$googleMapAPI_KEY", null, 1.0, true);
   wp_enqueue_script( 'script', 'http://localhost:3000/bundled.js', null, 1.0, true);
- 
+
+  wp_localize_script( 'script', 'themeData', array(
+    'root_url' => get_site_url()
+  ));
+
 }
 add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
 
