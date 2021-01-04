@@ -6,6 +6,7 @@
 
 # Module files
 node_modules
+bundled-assets
 
 # Keys
 keys.php
