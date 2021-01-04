@@ -30,6 +30,9 @@ class Search
   openOverlay() {
     this.searchOverlay.addClass("search-overlay--active");
     $("body").addClass("body-no-scroll");
+    // Removes the search results after closing and open the serach icon
+    this.searchField.val('');
+    setTimeout(() => this.searchField.focus(), 301);
     this.openOverlayOpen = true;
   }
 
