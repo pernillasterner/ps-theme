@@ -1,6 +1,16 @@
 <?php
 include 'keys.php';
 
+// REST API
+function ps_theme_custom_rest() {
+  // register_rest_field ( 'name-of-post-type', 'name-of-field-to-return', array-of-callbacks-and-schema()
+  register_rest_field('post', 'authorName', array(
+    'get_callback' => function() { return get_the_author(); }
+  ));
+}
+add_action( 'rest_api_init', 'ps_theme_custom_rest' );
+
+
 // Page Banner Content
 function pageBanner($args = NULL) {
   
