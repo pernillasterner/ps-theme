@@ -2,7 +2,7 @@
 include 'keys.php';
 require get_theme_file_path('/inc/search-route.php');
 
-// REST API
+// Rest API
 function ps_theme_custom_rest() {
   // register_rest_field ( 'name-of-post-type', 'name-of-field-to-return', array-of-callbacks-and-schema()
   register_rest_field('post', 'authorName', array(
