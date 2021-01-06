@@ -7,9 +7,10 @@ function register_search() {
 }
 add_action( 'rest_api_init', 'register_search' );
 
-function searchResults() {
+function searchResults($data) {
   $professors = new WP_Query(array(
-    'post_type' => 'professor'
+    'post_type' => 'professor',
+    's' => sanitize_text_field($data['term'])
   ));
 
   $professorResults = array();
