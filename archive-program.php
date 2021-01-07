@@ -5,7 +5,7 @@
 get_header(); ?>
 
 <?php pageBanner(array(
-    'title' => 'Our Campuses',
+    'title' => 'Our Programs',
     'subtitle' => 'Studdy hard!'
 )); ?>
 
