@@ -18,15 +18,17 @@ function searchResults($data) {
     'professors' => array(),
     'programs' => array(),
     'events' => array(),
-    'campuses' => x
+    'campuses' => array()
   );
 
   while($mainQuery->have_posts()) {
     $mainQuery->the_post();
     if (get_post_type() == 'post' || get_post_type() == 'page') {
       array_push($results['generalInfo'], array(
+        'postType' => get_post_type(),
         'title' => get_the_title(),
-        'permalink' => get_the_permalink()
+        'permalink' => get_the_permalink(),
+        'authorName' => get_the_author()
       ));
     }
 
